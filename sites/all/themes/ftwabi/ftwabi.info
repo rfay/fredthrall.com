@@ -1,0 +1,7 @@
+name = ftwabi
+description = fredthrall.com subtheme of wabi
+version = VERSION
+core = 6.x
+base theme = wabi
+stylesheets[all][] = fredthrall.css
+stylesheets[print][] = print.css

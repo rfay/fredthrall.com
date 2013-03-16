@@ -1,0 +1,178 @@
+<?php
+
+/**
+ * @file 
+ * CSS Editor for local Drupal themeing.
+ * @author Tj Holowaychuk <tj@vision-media.ca>
+ * @link http://vision-media.ca
+ * @package cssedit
+ */
+ 
+// @todo CSSEditManager.zindex increment and change when window clicked
+  // bringing it to the foreground
+// @todo textarea flashing cursor is missing?
+// @todo undo? store revisions so people can try weird shit
+// @todo Cancel bubbling of delete
+// @todo CTRL + S should save the css
+// @todo minimize
+// @todo console
+// @todo gutter / line numbers
+// @todo status indicator
+// @todo crap is selecting when dragging
+// @todo popups for save confirmation when closing etc
+// @todo security, check local, DO NOT USE ON LIVE SITE
+// @todo ensure that aggregation is not on
+// @todo crossbrowser
+// @todo -webkit specific effects / -moz effects??
+// @todo window size settings
+ 
+define('CSSEDIT_PATH', drupal_get_path('module', 'cssedit'));
+define('CSSEDIT_PERM_ADMIN', user_access('administer css editor'));
+define('CSSEDIT_PERM_ACCESS', user_access('use css editor'));
+ 
+/* -----------------------------------------------------------------
+
+  Hook Implementations 
+
+------------------------------------------------------------------ */
+  
+/**
+ * Implementation of hook_perm();
+ */
+function cssedit_perm() {
+  return array('administer css editor', 'use css editor');
+}
+
+/**
+ * Implementation of hook_init().
+ */
+function cssedit_init() {
+  cssedit_display(); 
+}
+
+/**
+ * Implementation of hook_menu().
+ */  
+function cssedit_menu(){
+  $items = array();
+  
+  $items['js/cssedit/save_file'] = array(
+      'page callback' => 'cssedit_js_save_file',
+      'access arguments' => array('use css editor'),
+    );  
+  
+  return $items;
+}   
+
+/* -----------------------------------------------------------------
+
+  Public API 
+
+------------------------------------------------------------------ */
+
+/**
+ * Load and display css editor.
+ */
+function cssedit_display() {
+  if (CSSEDIT_PERM_ACCESS){
+    drupal_add_css(CSSEDIT_PATH . '/cssedit.css');
+    drupal_add_js(CSSEDIT_PATH . '/cssedit.js');
+  }
+}
+
+/* -----------------------------------------------------------------
+
+  Ajax Callbacks 
+
+------------------------------------------------------------------ */
+
+/**
+ * Handle saveing of CSS files.
+ */
+function cssedit_js_save_file() {  
+  $state = array();
+  $args = $_POST;
+     
+  if (CSSEDIT_PERM_ACCESS){      
+    if ($error = cssedit_save_file(cssedit_clean_filename($args['filename']), $args['css'])){
+      if ($error === TRUE){
+        $state['message'] = t('Stylesheet saved');  
+      }  
+      else {
+        $state['status'] = 0;
+        $state['message'] = $error;           
+        watchdog('cssedit', $error, array(), WATCHDOG_ERROR);
+      }
+    } 
+  }  
+  else {
+    $state['status'] = 0;
+    $state['message'] = t('Access denied');
+  }
+  
+  // State defaults
+  $state += array(
+      'status' => 1,
+      'message' => '',
+    );
+  
+  drupal_json($state);
+  exit;
+}
+
+/* -----------------------------------------------------------------
+
+  General functionality 
+
+------------------------------------------------------------------ */
+
+/**
+ * Save CSS.
+ * 
+ * @param string $filename
+ * 
+ * @param string $css
+ * 
+ * @return mixed
+ *   - success: TRUE
+ *   - failure: Error message
+ */
+function cssedit_save_file($filename, $css) {
+  if (!file_exists($filename)){
+    return t('File %file does not exist.', array('%file' => $filename));
+  } 
+  elseif (!is_writeable($filename)){
+    return t('File %file is not writeable.', array('%file' => $filename)); 
+  } 
+  else {
+    if ($fh = fopen($filename, 'w')){
+      fwrite($fh, $css);
+      fclose($fh);
+      return TRUE;
+    }
+    else {
+      return t('Failed to write to %file.', array('%file' => $filename));
+    }
+  }
+}
+
+/**
+ * Clean a filename, ensuring it is
+ * ready for a write attempt.
+ *
+ * @param string $filename
+ * 
+ * @returns string
+ */
+function cssedit_clean_filename($filename) {
+  global $base_path;
+  
+  if (preg_match('/(.*?\.css)(\?.*)?/', $filename, $matches)){
+    return str_ireplace($base_path, './', (string) $matches[1]);
+  }
+  
+  return FALSE;
+}
+
+
+

@@ -1,0 +1,200 @@
+/**
+ * Panel
+ */
+#cssedit-panel {
+  position: fixed;
+  z-index: 20;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 31px;
+  font-family: "Tahoma";
+  background: url(images/hr4.png) 0 0 repeat-x;
+  -moz-user-select: none;
+}
+#cssedit-panel  a {
+  display: block;
+  float: left;
+  margin: 0 1px;
+  padding: 0 10px;
+  height: 30px;
+  line-height: 33px;
+  font-size: 11px;
+  outline: none;
+  color: #9d9e9f;
+}
+#cssedit-panel  a:hover,
+#cssedit-panel a.active {
+  text-decoration: none;
+  background: url(images/hr5.png) 0 0 repeat-x;
+  color: #fff;
+}
+
+/**
+ * Switcher
+ */
+#cssedit-switcher {
+  display: block;
+  float: left;
+  margin: 6px 5px 0 0;
+  padding: 0 10px 0 0;
+  width: 90px;
+  height: 31px;
+  font-size: 10px;
+  text-align: right; 
+  line-height: 22px;
+  background: url(images/switcher.png) 0 0 no-repeat;
+  cursor: pointer;
+  color: #fff;
+}
+
+/**
+ * Window
+ */
+.cssedit-window {
+  position: fixed;
+  z-index: 25;
+  width: 901px;
+  height: 471px;
+  font-family: "Tahoma", "Calibri";
+  background: url(images/bg.png) 0 0 no-repeat;
+}   
+.cssedit-window .right {
+  position: absolute;
+  top: 45px;
+  right: 20px;
+  width: 190px;
+  height: 374px;
+}
+
+/**
+ * Textarea
+ */
+.cssedit-window textarea.css {
+  margin: 45px 20px 0 20px;
+  padding: 10px;
+  width: 650px;  
+  height: 355px;  
+  font-family: "Courier New";
+  border: none;
+  background: url(images/bgt.png) 0 0 repeat;
+  color: #fff;
+}
+
+/**
+ * Title bar
+ */
+.cssedit-titlebar {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 100%;
+  cursor: move;     
+  text-align: center; 
+  font-size: 12px;
+  -moz-user-select: none;
+  color: #fff;
+}
+.cssedit-titlebar .close {
+  position: absolute;
+  top: 3px;
+  left: 12px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  text-indent: -99999px;
+  outline: none;
+  background: url(images/x.png) 0 0 no-repeat;
+}
+.cssedit-titlebar .close:hover {
+  opacity: 0.8;
+}
+.cssedit-titlebar .close:active {
+  top: 4px;
+  left: 13px;
+  opacity: 0.6;
+}
+.cssedit-titlebar em {
+  font-style: normal;
+  color: #6c6f72;
+}   
+
+/**
+ * Status bar
+ */ 
+.cssedit-status {
+  position: absolute;
+  bottom: 16px;
+  left: 30px;
+  font-size: 11px;
+}
+.cssedit-status.status-normal {
+  color: #6c6f72;
+}
+.cssedit-status.status-warning {
+  color: #fffc00;
+}
+.cssedit-status.status-error {
+  color: #f80000;
+}
+
+/**
+ * Explorer
+ */ 
+ .cssedit-explorer {
+  height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+} 
+.cssedit-explorer .title {
+  display: block;
+  width: 100%;
+  height: 25x;
+  line-height: 25px; 
+  text-indent: 10px;
+  background: url(images/hr3.png) 0 0 repeat-x;
+  font-size: 11px;
+  -moz-user-select: none;
+  color: #fff;
+}
+.cssedit-explorer .cssedit-navitem {
+  display: block;
+  width: 100%;
+  padding: 2px 0 2px 8px;
+  font-size: 10px;
+  font-family: "Tahoma";
+  -moz-user-select: none;
+  outline: none;
+  color: #8c8e90;
+}
+.cssedit-explorer .cssedit-navitem + .cssedit-navitem {
+  border-top: 1px solid #3b3f42;
+}
+.cssedit-explorer .cssedit-navitem.secondary {
+  color: #535556;
+} 
+.cssedit-explorer .cssedit-navitem:hover {
+  text-decoration: none;
+  background: url(images/bgt.png) 0 0 repeat;
+  color: #fff;
+}
+
+/**
+ * Form elements
+ */ 
+.cssedit-window  input[type=button] {
+  margin: 15px 0;
+  height: 26px;
+  border: none;
+  font-size: 11px;
+  font-family: "Tahoma", "Calibri";
+  background: url(images/hr2.png) 0 0 repeat-x;
+  color: #acacac;
+}
+.cssedit-window  input[type=button]:hover {
+  color: #fff;
+}
+.cssedit-window input.cssedit-save {
+  float: right;
+  width: 96%;
+}
