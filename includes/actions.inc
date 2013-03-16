@@ -1,28 +1,8 @@
 <?php
-// $Id: actions.inc,v 1.8.2.12 2010/05/28 15:08:22 goba Exp $
 
 /**
  * @file
  * This is the actions engine for executing stored actions.
- */
-
-/**
- * @defgroup actions Actions
- * @{
- * Functions that perform an action on a certain system object.
- *
- * All modules should declare their action functions to be in this group and
- * each action function should reference its configuration form, validate, and
- * submit functions using \@see. Conversely, form, validate, and submit
- * functions should reference the action function using \@see. For examples of
- * this see comment_unpublish_by_keyword_action(), which has the following in
- * its doxygen documentation:
- *
- * \@ingroup actions
- * \@see comment_unpublish_by_keyword_action_form().
- * \@see comment_unpublish_by_keyword_action_submit().
- *
- * @} End of "defgroup actions".
  */
 
 /**
@@ -328,7 +308,7 @@ function actions_synchronize($actions_in_code = array(), $delete_orphans = FALSE
       else {
         // This is a new singleton that we don't have an aid for; assign one.
         db_query("INSERT INTO {actions} (aid, type, callback, parameters, description) VALUES ('%s', '%s', '%s', '%s', '%s')", $callback, $array['type'], $callback, '', $array['description']);
-        watchdog('actions', "Action '%action' added.", array('%action' => filter_xss_admin($array['description'])));
+        watchdog('actions', "Action '%action' added.", array('%action' => $array['description']));
       }
     }
   }
@@ -350,13 +330,13 @@ function actions_synchronize($actions_in_code = array(), $delete_orphans = FALSE
       $results = db_query("SELECT a.aid, a.description FROM {actions} a WHERE callback IN ($placeholders)", $orphaned);
       while ($action = db_fetch_object($results)) {
         actions_delete($action->aid);
-        watchdog('actions', "Removed orphaned action '%action' from database.", array('%action' => filter_xss_admin($action->description)));
+        watchdog('actions', "Removed orphaned action '%action' from database.", array('%action' => $action->description));
       }
     }
     else {
       $link = l(t('Remove orphaned actions'), 'admin/settings/actions/orphan');
       $count = count($actions_in_db);
-      watchdog('actions', format_plural($count, 'One orphaned action (%orphans) exists in the actions table. !link', '@count orphaned actions (%orphans) exist in the actions table. !link'), array('@count' => $count, '%orphans' => $orphans, '!link' => $link), WATCHDOG_WARNING);
+      watchdog('actions', format_plural($count, 'One orphaned action (%orphans) exists in the actions table. !link', '@count orphaned actions (%orphans) exist in the actions table. !link'), array('@count' => $count, '%orphans' => $orphans, '!link' => $link), WATCHDOG_INFO);
     }
   }
 }
