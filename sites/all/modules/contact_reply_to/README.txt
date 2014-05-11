@@ -1,7 +1,7 @@
 If you enable this module, the "From" address on contact emails, both site
 emails via the contact form and user-to-user emails via the member contact form,
 will be "From" the email address configured in site_mail
-(admin/settings/site-information). The reply-to header will be set to the
+(admin/config/system/site-information). The reply-to header will be set to the
 address that Drupal would have used as the From address.
 
 This avoids many spam-classification issues. Many, many mail handlers will

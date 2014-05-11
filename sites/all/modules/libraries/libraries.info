@@ -1,11 +1,13 @@
-; $Id: libraries.info,v 1.1.2.1 2011/01/27 02:07:03 sun Exp $
 name = Libraries
-description = Allows version dependent and shared usage of external libraries.
-core = 6.x
+description = Allows version-dependent and shared usage of external libraries.
+core = 7.x
+; We use hook_system_theme_info() which was added in Drupal 7.11
+dependencies[] = system (>=7.11)
+files[] = tests/libraries.test
 
-; Information added by drupal.org packaging script on January 1, 1970 - 00:00
-version = "6.x-1.0"
-core = "6.x"
+; Information added by Drupal.org packaging script on 2014-02-09
+version = "7.x-2.2"
+core = "7.x"
 project = "libraries"
-datestamp = "1296096157"
+datestamp = "1391965716"
 
