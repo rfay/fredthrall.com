@@ -1,6 +1,0 @@
-name = fttwilight
-description = Subtheme of Twilight
-version = VERSION
-core = 6.x
-base theme = twilight
-stylesheets[all][] = fredthrall.css

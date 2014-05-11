@@ -1,6 +1,0 @@
-name = ftpixture
-description = subtheme of pixture for fredthrall.com
-version = VERSION
-core = 6.x
-base theme = pixture
-stylesheets[all][] = fredthrall.css
