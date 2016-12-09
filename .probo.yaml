@@ -1,4 +1,8 @@
+assets:
+  - fredthrall_com.sql.gz
 steps:
-  - name: Test Connection
-    plugin: Shell
-    command: 'print "Hello World!"'
+  - name: Probo site setup for fredthrall.com
+    plugin: Drupal
+    database: frethrall_com.sql.gz
+    databaseGzipped: true
+    databaseUpdates: true
