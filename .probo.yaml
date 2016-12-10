@@ -1,5 +1,5 @@
 assets:
-  - fredthrall_com.sql.gz
+  - dev.sql.gz
 steps:
   - name: Probo site setup for fredthrall.com
     plugin: Drupal
