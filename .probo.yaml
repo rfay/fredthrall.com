@@ -3,6 +3,6 @@ assets:
 steps:
   - name: Probo site setup for fredthrall.com
     plugin: Drupal
-    database: frethrall_com.sql.gz
+    database: dev.sql.gz
     databaseGzipped: true
     databaseUpdates: true
