@@ -7,3 +7,4 @@ steps:
     databaseGzipped: true
     databaseUpdates: false
     drupalVersion: 7
+
