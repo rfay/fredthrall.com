@@ -1,10 +1,13 @@
 assets:
-  - dev.sql.gz
+  - fredthrall.sql.gz
+  - files.tgz
 steps:
-  - name: Probo site setup for fredthrall.com
+  - name: Load files
+    plugin: Shell
+    command: 'cd $SRC_DIR && tar -zxf $ASSET_DIR/files.tgz'
+  - name: Probo.CI site setup
     plugin: Drupal
-    database: dev.sql.gz
+    database: fredthrall.sql.gz
     databaseGzipped: true
-    databaseUpdates: false
-    drupalVersion: 7
-
+    databaseUpdates: true
+    clearCaches: true
