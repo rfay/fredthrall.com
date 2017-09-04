@@ -4,4 +4,5 @@ docroot/sites/*/settings*.php
 
 # Ignore paths that contain user-generated content.
 docroot/files
+docroot/private_files
 docroot/sites/default/files
